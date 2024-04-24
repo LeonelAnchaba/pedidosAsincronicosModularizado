@@ -1,8 +1,37 @@
 window.onload = () => {
+    if(window.location.search) {
+        let id = window.location.search.substring(window.location.search.indexOf("=") + 1)
+      
+        fetch(`http://localhost:3031/api/movies/${id}`)
+      .then(function(response){
+          return response.json()
+      })
+      .then((peliculas)=>{
+        console.log(peliculas)
+    
+        console.log("ventana: ", window.location.search.substring(window.location.search.indexOf("=") + 1))
+        console.log("llega la data? ", window)
+        document.querySelector('#title').value = peliculas.data.title
+        document.querySelector('#rating').value = peliculas.data.rating
+        document.querySelector('#awards').value = peliculas.data.awards
+        document.querySelector('#release_date').value = peliculas.data.release_date.slice(0,10)
+        document.querySelector('#length').value = peliculas.data.length
+
+        document.getElementById("createButton").disabled = "true"
+        document.getElementById("createButton").style.display = "none"
+    })
+    } else {
+        console.log("formulario de crear")
+    }
+   
+
 console.log("GGGGGGGGGGGGGGGG")
     const agregar = document.getElementById("createButton");
-  const editar = document.getElementById("editButton")
-  const borrar = document.getElementById("deleteButton")
+
+  
+    const editar = document.getElementById("editButton")
+    const borrar = document.getElementById("deleteButton");
+    
 
 // Aqui debemos agregar nuestro fetch
 
@@ -32,6 +61,8 @@ agregar.addEventListener("click", function(e) {
     })
     
  })
+
+
 
 
 // editar.addEventListener("click", function (e) {

@@ -16,6 +16,9 @@ window.onload = () => {
     let data = peliculas.data;
 
     data.forEach((movie) => {
+
+      
+
       const card = document.createElement("div");
       card.setAttribute("class", "card");
       card.style.position = "relative";
@@ -27,7 +30,9 @@ window.onload = () => {
       star.style.right = "10px"
 
       const a = document.createElement("a");
-      a.setAttribute("href", `formulario.html`)
+      
+      a.setAttribute("class", "accesoAlDetalle")
+      a.setAttribute("id", `${movie.id}`)
       a.textContent = "Detalle"
 
       const h1 = document.createElement("h1");
@@ -50,6 +55,38 @@ window.onload = () => {
       }
       card.appendChild(duracion);
       card.appendChild(a);
-    });
+
+
+    }
+  
+  );
+
+
+    const buttonDetalle = document.querySelectorAll(".accesoAlDetalle")
+
+    buttonDetalle.forEach(button => {
+      
+    button.addEventListener("click", function(e){
+      e.preventDefault();
+  
+  
+      console.log("doy con el id?", button.id)
+      fetch(`http://localhost:3031/api/movies/${button.id}`)
+      .then(function(response){
+          return response.json()
+      })
+      .then((peliculas)=>{
+        let data = peliculas.data;
+        console.log("Que es data.title", data.title)
+        console.log("Y que hay en data?: ", data)
+        console.log("doy con el id?", button.id)
+        window.location.href = window.location.href.replace("home.html", `formulario.html?id=${button.id}`)
+        
+
+        
+       })
   })
+})
+  
+})
 };
