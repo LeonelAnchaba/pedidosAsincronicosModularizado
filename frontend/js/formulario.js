@@ -22,6 +22,11 @@ window.onload = () => {
     })
     } else {
         console.log("formulario de crear")
+        document.getElementById("editButton").disabled = "true"
+        document.getElementById("editButton").style.display = "none"
+
+        document.getElementById("deleteButton").disabled = "true"
+        document.getElementById("deleteButton").style.display = "none"
     }
    
 
@@ -43,7 +48,7 @@ agregar.addEventListener("click", function(e) {
         title: document.querySelector('#title').value,
         rating: document.querySelector('#rating').value,
         awards: document.querySelector('#awards').value,
-        release_date: document.querySelector('#release_date').value,
+        release_date: document.querySelector('#release_date').value += "T00:00:00.000Z",
         length: document.querySelector('#length').value,
     };
 
